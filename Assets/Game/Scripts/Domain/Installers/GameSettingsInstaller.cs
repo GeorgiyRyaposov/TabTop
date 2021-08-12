@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Game.Scripts.Domain.Tools;
+using UnityEngine;
 using Zenject;
 
 namespace Assets.Game.Scripts.Domain.Installers
@@ -6,7 +7,7 @@ namespace Assets.Game.Scripts.Domain.Installers
     [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Data/GameSettingsInstaller")]
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
     {
-        //public WeaponsList WeaponsList;
+        public ToolsContainer ToolsContainer;
 
         public override void InstallBindings()
         {
@@ -15,7 +16,7 @@ namespace Assets.Game.Scripts.Domain.Installers
             //    Container.QueueForInject(weapon.Bullet);
             //}
 
-            //Container.BindInstance(WeaponsList);
+            Container.BindInstance(ToolsContainer);
             //Container.BindInstance(EnemyMask);
         }
     }

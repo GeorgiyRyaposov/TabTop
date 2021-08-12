@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9c3c54980ab6b4bb97d7d492bcbbed, type: 3}
-  m_Name: GameSettingsInstaller
+  m_Script: {fileID: 11500000, guid: 9c0d08e5f4cfe154d8fd7e0277fd3267, type: 3}
+  m_Name: ToolsContainer
   m_EditorClassIdentifier: 
-  ToolsContainer: {fileID: 11400000, guid: d2ab6a733d27baa479cf0a68780cd905, type: 2}
+  InstallFlatMesh: {fileID: 11400000, guid: d36653c9c76f607439f187f316978c8c, type: 2}
+  InstallVolumeMesh: {fileID: 11400000, guid: 15dd6b46ad88f5644964f9f079136b20, type: 2}

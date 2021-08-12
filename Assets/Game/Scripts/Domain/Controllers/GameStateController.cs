@@ -1,5 +1,7 @@
-﻿using Assets.Game.Scripts.Domain.Contexts;
+﻿using Assets.Game.Scripts.Domain.Components;
+using Assets.Game.Scripts.Domain.Contexts;
 using Assets.Game.Scripts.Domain.Signals;
+using Assets.Game.Scripts.Domain.Tools;
 using System;
 using UnityEngine;
 using Zenject;
@@ -10,19 +12,25 @@ namespace Assets.Game.Scripts.Domain.Controllers
     {
         private GameInputController _gameInputSystem;
         private SignalBus _signalBus;
+        private readonly TableObject.Factory _tableObjectsFactory;
+        private readonly ToolsContainer _toolsContainer;
 
         //private StartScreenView _startScreenView;
         //private SettingsView _settingsView;
 
         public GameStateController(GameInputController gameInputSystem,
-            SignalBus signalBus)
+            SignalBus signalBus, TableObject.Factory tableObjectsFactory,
+            ToolsContainer toolsContainer)
         {
             _gameInputSystem = gameInputSystem;
             _signalBus = signalBus;
+            _tableObjectsFactory = tableObjectsFactory;
+            _toolsContainer = toolsContainer;
         }
 
         public void Initialize()
         {
+            StartNewGame();
             SetupViews();
         }
         public void Dispose()
@@ -46,23 +54,21 @@ namespace Assets.Game.Scripts.Domain.Controllers
 
         public void StartNewGame()
         {
-            HideCursor(true);
-
-            Camera.main.enabled = false; //hide camera for start screen menu
-
             GameContext.Current = new GameContext();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var tableObj = _tableObjectsFactory.Create(new Vector3(i, 5, 0));
+
+                var installTool = i % 2 == 0 ? _toolsContainer.InstallFlatMesh : _toolsContainer.InstallVolumeMesh;
+                installTool.Install(tableObj);
+            }
 
             //activate player
             //_protagonist.gameObject.SetActive(true);
             //_protagonist.Attach(GameContext.Current);
 
             _signalBus.Fire<NewGameStarted>();
-        }
-
-        private void HideCursor(bool hide)
-        {
-            Cursor.lockState = hide ? CursorLockMode.Locked : CursorLockMode.None;
-            Cursor.visible = !hide;
         }
     }
 }

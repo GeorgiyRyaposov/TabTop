@@ -1,13 +1,19 @@
-﻿using Assets.Game.Scripts.Domain.Signals;
+﻿using Assets.Game.Scripts.Domain.Components;
 using Assets.Game.Scripts.Domain.Controllers;
-using Assets.Game.Scripts.Domain.Views;
+using Assets.Game.Scripts.Domain.Signals;
 using UnityEngine;
 using Zenject;
 
 namespace Assets.Game.Scripts.Domain.Installers
 {
-    public class GameInstaller : MonoInstaller
+    public class GameSceneInstaller : MonoInstaller
     {
+        [Header("Prefabs")]
+        public TableObject TableObj;
+
+        [Header("GameScene")]
+        public Transform TableRoot;
+
         [Header("Ui")]
         public Transform UiRoot;
 
@@ -27,10 +33,10 @@ namespace Assets.Game.Scripts.Domain.Installers
             //Container.BindInstance(Protagonist);
 
             //install factories
-            //Container.BindFactory<Vector3, float, ExplosionRangeVisual, ExplosionRangeVisual.Factory>()
-            //    .FromMonoPoolableMemoryPool(x => x.WithInitialSize(2)
-            //                                      .FromComponentInNewPrefab(ExplosionRangeVisual)
-            //                                      .UnderTransformGroup("ExplosionRangeVisuals"));
+            Container.BindFactory<Vector3, TableObject, TableObject.Factory>()
+                .FromMonoPoolableMemoryPool(x => x.WithInitialSize(10)
+                                                  .FromComponentInNewPrefab(TableObj)
+                                                  .UnderTransformGroup("TableObjectsPool"));
         }
 
         private void InstallSignals()
