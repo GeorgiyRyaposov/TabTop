@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InstallFlatMesh: {fileID: 11400000, guid: d36653c9c76f607439f187f316978c8c, type: 2}
   InstallVolumeMesh: {fileID: 11400000, guid: 15dd6b46ad88f5644964f9f079136b20, type: 2}
+  InstallTexture: {fileID: 11400000, guid: b9825ea7ee70adb4b8185626747ef5a6, type: 2}

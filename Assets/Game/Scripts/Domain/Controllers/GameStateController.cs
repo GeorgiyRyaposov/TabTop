@@ -3,7 +3,11 @@ using Assets.Game.Scripts.Domain.Contexts;
 using Assets.Game.Scripts.Domain.Signals;
 using Assets.Game.Scripts.Domain.Tools;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 using Zenject;
 
 namespace Assets.Game.Scripts.Domain.Controllers
@@ -62,6 +66,8 @@ namespace Assets.Game.Scripts.Domain.Controllers
 
                 var installTool = i % 2 == 0 ? _toolsContainer.InstallFlatMesh : _toolsContainer.InstallVolumeMesh;
                 installTool.Install(tableObj);
+
+                _toolsContainer.InstallTexture.Install(tableObj, i);
             }
 
             //activate player

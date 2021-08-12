@@ -7,5 +7,6 @@ namespace Assets.Game.Scripts.Domain.Tools
     {
         public InstallMeshTool InstallFlatMesh;
         public InstallMeshTool InstallVolumeMesh;
+        public InstallTextureTool InstallTexture;
     }
 }
