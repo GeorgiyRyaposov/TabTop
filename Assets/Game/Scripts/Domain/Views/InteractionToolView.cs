@@ -21,7 +21,6 @@ namespace Assets.Game.Scripts.Domain.Views
         public void Attach(GameContext gameContext)
         {
             gameContext.SelectedObject.ObserveEveryValueChanged(x => x.Value)
-                                    .Where(x => x != null)
                                     .Subscribe(OnObjChanged)
                                     .AddTo(_disposables);
         }
@@ -30,9 +29,12 @@ namespace Assets.Game.Scripts.Domain.Views
         {
             ClearButtons();
 
-            foreach (var tool in obj.InteractionTools)
+            if (obj != null)
             {
-                AddButton(obj, tool);
+                foreach (var tool in obj.InteractionTools)
+                {
+                    AddButton(obj, tool);
+                }
             }
         }
 

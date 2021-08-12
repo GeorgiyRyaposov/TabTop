@@ -18,6 +18,7 @@ namespace Assets.Game.Scripts.Domain.Installers
 
         [Header("Ui")]
         public InteractionToolView InteractionToolView;
+        public SelectedToolView SelectedToolView;
 
         public override void InstallBindings()
         {
@@ -25,7 +26,8 @@ namespace Assets.Game.Scripts.Domain.Installers
 
             //install ui
             Container.BindInstance(InteractionToolView);
-
+            Container.BindInstance(SelectedToolView);
+            
             //install game systems
             Container.BindInterfacesAndSelfTo<GameStateController>().AsSingle();
 

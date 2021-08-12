@@ -1,6 +1,7 @@
 ﻿using Assets.Game.Scripts.Domain.Components;
 using Assets.Game.Scripts.Domain.Contexts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Game.Scripts.Domain.Controllers
 {
@@ -11,7 +12,7 @@ namespace Assets.Game.Scripts.Domain.Controllers
         [SerializeField] private float _forceAmount = 500;
 #pragma warning restore 0649
 
-        private bool _isSelected;
+        private bool _isDrag;
 
         private TableObject SelectedTableObject
         {
@@ -25,6 +26,11 @@ namespace Assets.Game.Scripts.Domain.Controllers
 
         private void Update()
         {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 if (TryGetTableObject(out var selectedTableObject))
@@ -32,19 +38,32 @@ namespace Assets.Game.Scripts.Domain.Controllers
                     SelectedTableObject = selectedTableObject;
                     SelectedTableObject.Rigidbody.freezeRotation = true;
                 }
+                else
+                {
+                    SelectedTableObject = null;
+                    StopDrag();
+                }
             }
 
-            if (Input.GetMouseButtonUp(0) && _isSelected)
+            if (Input.GetMouseButtonUp(0) && _isDrag)
+            {
+                StopDrag();
+            }
+        }
+
+        private void StopDrag()
+        {
+            _isDrag = false;
+
+            if (SelectedTableObject != null)
             {
                 SelectedTableObject.Rigidbody.freezeRotation = false;
-                //SelectedTableObject = null;
-                _isSelected = false;
             }
         }
 
         private void FixedUpdate()
         {
-            if (_isSelected)
+            if (_isDrag)
             {
                 var screenPos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, _selectionDistance);
                 var mousePositionOffset = _camera.ScreenToWorldPoint(screenPos) - _originalScreenTargetPosition;
@@ -63,7 +82,7 @@ namespace Assets.Game.Scripts.Domain.Controllers
                 _originalScreenTargetPosition = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _selectionDistance));
                 _originalPosition = hitInfo.collider.transform.position;
 
-                _isSelected = true;
+                _isDrag = true;
                 return true;
             }
 

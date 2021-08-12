@@ -15,15 +15,18 @@ namespace Assets.Game.Scripts.Domain.Controllers
         private readonly TableObject.Factory _tableObjectsFactory;
         private readonly ToolsContainer _toolsContainer;
         private readonly InteractionToolView _interactionToolView;
+        private readonly SelectedToolView _selectedToolView;
 
         public GameStateController(
             SignalBus signalBus, TableObject.Factory tableObjectsFactory,
-            ToolsContainer toolsContainer, InteractionToolView interactionToolView)
+            ToolsContainer toolsContainer, InteractionToolView interactionToolView,
+            SelectedToolView selectedToolView)
         {
             _signalBus = signalBus;
             _tableObjectsFactory = tableObjectsFactory;
             _toolsContainer = toolsContainer;
             _interactionToolView = interactionToolView;
+            _selectedToolView = selectedToolView;
         }
 
         public void Initialize()
@@ -54,12 +57,13 @@ namespace Assets.Game.Scripts.Domain.Controllers
                 tableObj.InteractionTools.AddRange(objectParameters.InteractionTools);
             }
 
-            _signalBus.Fire<NewGameStarted>();
+            //_signalBus.Fire<NewGameStarted>();
         }
 
         private void SetupViews()
         {
             _interactionToolView.Attach(GameContext.Current);
+            _selectedToolView.Attach(GameContext.Current);
         }
     }
 }
