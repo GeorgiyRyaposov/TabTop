@@ -43,8 +43,19 @@ namespace Assets.Game.Scripts.Domain.Tools
         private void Rotate(TableObject tableObject, bool left)
         {
             var sign = left ? 1 : -1;
-            var rotation = tableObject.MeshRenderer.transform.localRotation.eulerAngles + _rotation * sign;
-            tableObject.MeshRenderer.transform.DOLocalRotate(rotation, _duration).SetEase(Ease.InOutSine);
+            var originalY = tableObject.MeshRenderer.transform.position.y;
+            var targetY = tableObject.Collider.center.y + GetMaxSize(tableObject.Collider.bounds);
+            var targetRotation = tableObject.MeshRenderer.transform.localRotation.eulerAngles + _rotation * sign;
+
+            var seq = DOTween.Sequence();
+            seq.Append(tableObject.MeshRenderer.transform.DOMoveY(targetY, _duration * 0.2f));
+            seq.Append(tableObject.MeshRenderer.transform.DOLocalRotate(targetRotation, _duration).SetEase(Ease.InOutSine));
+            seq.Append(tableObject.MeshRenderer.transform.DOMoveY(originalY, _duration * 0.2f));
+        }
+
+        private float GetMaxSize(Bounds bounds)
+        {
+            return Mathf.Max(bounds.size.x, bounds.size.y, bounds.size.z);
         }
     }
 }
