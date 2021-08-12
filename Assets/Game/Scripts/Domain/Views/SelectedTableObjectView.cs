@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Game.Scripts.Domain.Views
 {
-    public class SelectedToolView : MonoBehaviour, IDisposable
+    public class SelectedTableObjectView : MonoBehaviour, IDisposable
     {
 #pragma warning disable 0649
         [SerializeField] private Color _selectedColor;

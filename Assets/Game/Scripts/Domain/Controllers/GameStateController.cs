@@ -14,11 +14,11 @@ namespace Assets.Game.Scripts.Domain.Controllers
         private readonly ToolsContainer _toolsContainer;
 
         private readonly InteractionToolView _interactionToolView;
-        private readonly SelectedToolView _selectedToolView;
+        private readonly SelectedTableObjectView _selectedToolView;
 
         public GameStateController(TableObject.Factory tableObjectsFactory,
             ToolsContainer toolsContainer, InteractionToolView interactionToolView,
-            SelectedToolView selectedToolView)
+            SelectedTableObjectView selectedToolView)
         {
             _tableObjectsFactory = tableObjectsFactory;
             _toolsContainer = toolsContainer;

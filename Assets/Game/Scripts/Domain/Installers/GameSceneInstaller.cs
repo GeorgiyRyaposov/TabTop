@@ -17,7 +17,7 @@ namespace Assets.Game.Scripts.Domain.Installers
 
         [Header("Ui")]
         public InteractionToolView InteractionToolView;
-        public SelectedToolView SelectedToolView;
+        public SelectedTableObjectView SelectedToolView;
 
         public override void InstallBindings()
         {
