@@ -4,25 +4,24 @@ using Assets.Game.Scripts.Domain.Signals;
 using Assets.Game.Scripts.Domain.Tools;
 using Assets.Game.Scripts.Domain.Views;
 using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
 namespace Assets.Game.Scripts.Domain.Controllers
 {
-    public class GameStateController : IInitializable, IDisposable
+    public class GameStateController : IInitializable
     {
-        private SignalBus _signalBus;
         private readonly TableObject.Factory _tableObjectsFactory;
         private readonly ToolsContainer _toolsContainer;
+
         private readonly InteractionToolView _interactionToolView;
         private readonly SelectedToolView _selectedToolView;
 
-        public GameStateController(
-            SignalBus signalBus, TableObject.Factory tableObjectsFactory,
+        public GameStateController(TableObject.Factory tableObjectsFactory,
             ToolsContainer toolsContainer, InteractionToolView interactionToolView,
             SelectedToolView selectedToolView)
         {
-            _signalBus = signalBus;
             _tableObjectsFactory = tableObjectsFactory;
             _toolsContainer = toolsContainer;
             _interactionToolView = interactionToolView;
@@ -34,10 +33,6 @@ namespace Assets.Game.Scripts.Domain.Controllers
             StartNewGame();
             SetupViews();
         }
-        public void Dispose()
-        {
-
-        }
 
         public void StartNewGame()
         {
@@ -47,17 +42,15 @@ namespace Assets.Game.Scripts.Domain.Controllers
             {
                 var objectParameters = _toolsContainer.StartObjectsParameters[i];
 
-                var tableObj = _tableObjectsFactory.Create(new Vector3(i + 0.5f, 5, 0));
+                var tableObj = _tableObjectsFactory.Create(new Vector3(i * 1.2f, 1, i % 5));
 
                 foreach (var installTool in objectParameters.InstallTools)
                 {
                     installTool.Install(tableObj);
                 }
 
-                tableObj.InteractionTools.AddRange(objectParameters.InteractionTools);
+                tableObj.InteractionTools.AddRange(objectParameters.InteractionTools.Except(_toolsContainer.ExcludedTools));
             }
-
-            //_signalBus.Fire<NewGameStarted>();
         }
 
         private void SetupViews()

@@ -44,7 +44,7 @@ namespace Assets.Game.Scripts.Domain.Tools
         {
             var sign = left ? 1 : -1;
             var originalY = tableObject.MeshRenderer.transform.position.y;
-            var targetY = tableObject.Collider.center.y + GetMaxSize(tableObject.Collider.bounds);
+            var targetY = originalY + tableObject.Collider.center.y + GetMaxSize(tableObject.Collider.bounds);
             var targetRotation = tableObject.MeshRenderer.transform.localRotation.eulerAngles + _rotation * sign;
 
             var seq = DOTween.Sequence();

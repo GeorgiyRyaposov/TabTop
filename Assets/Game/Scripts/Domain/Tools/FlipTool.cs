@@ -30,7 +30,7 @@ namespace Assets.Game.Scripts.Domain.Tools
         private void Flip(TableObject tableObject)
         {
             var originalY = tableObject.MeshRenderer.transform.position.y;
-            var targetY = tableObject.Collider.center.y + GetMaxSize(tableObject.Collider.bounds);
+            var targetY = originalY + tableObject.Collider.center.y + GetMaxSize(tableObject.Collider.bounds);
             var targetRotation = tableObject.MeshRenderer.transform.localRotation.eulerAngles + _rotation;
 
             var seq = DOTween.Sequence();

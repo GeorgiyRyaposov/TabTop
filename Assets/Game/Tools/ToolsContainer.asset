@@ -12,9 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c0d08e5f4cfe154d8fd7e0277fd3267, type: 3}
   m_Name: ToolsContainer
   m_EditorClassIdentifier: 
-  InstallFlatMesh: {fileID: 11400000, guid: d36653c9c76f607439f187f316978c8c, type: 2}
-  InstallVolumeMesh: {fileID: 11400000, guid: 15dd6b46ad88f5644964f9f079136b20, type: 2}
-  InstallTexture: {fileID: 11400000, guid: b9825ea7ee70adb4b8185626747ef5a6, type: 2}
   StartObjectsParameters:
   - {fileID: 11400000, guid: 9fc73cc8863b6a940a7feb108f1e50c4, type: 2}
   - {fileID: 11400000, guid: 442e7d7e29984c34bab8ec99b8ceaf98, type: 2}
@@ -26,4 +23,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc3402391eb0b5140b4088f8323e183b, type: 2}
   - {fileID: 11400000, guid: 4bc1fbf9c50bfe54290de53d3c15741c, type: 2}
   - {fileID: 11400000, guid: b0c9023e75a4d6b42ae7bdba76fdf362, type: 2}
-  FlipTool: {fileID: 0}
+  - {fileID: 11400000, guid: a7d326fe852125a49b63ddafeaf2f7e6, type: 2}
+  ExcludedTools: []

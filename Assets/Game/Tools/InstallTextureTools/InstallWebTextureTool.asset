@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe8e9c54c1cc1544dafa4f1b1ccab594, type: 3}
-  m_Name: FlipTool
+  m_Script: {fileID: 11500000, guid: 7ffa9b30ec94869468e950e65b3eabcf, type: 3}
+  m_Name: InstallWebTextureTool
   m_EditorClassIdentifier: 
-  _rotation: {x: 0, y: 180, z: 0}
-  _duration: 1
+  _textureUrl: https://i.pinimg.com/236x/c3/81/f8/c381f83b20e92f22fa54237fa9458bc0.jpg

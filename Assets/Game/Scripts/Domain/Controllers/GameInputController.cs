@@ -76,7 +76,7 @@ namespace Assets.Game.Scripts.Domain.Controllers
             var ray = _camera.ScreenPointToRay(Input.mousePosition);
             
             if (Physics.Raycast(ray, out RaycastHit hitInfo) &&
-                hitInfo.collider.gameObject.transform.parent.TryGetComponent<TableObject>(out tableObject))
+                hitInfo.collider.gameObject.transform.parent.TryGetComponent(out tableObject))
             {
                 _selectionDistance = Vector3.Distance(ray.origin, hitInfo.point);
                 _originalScreenTargetPosition = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _selectionDistance));

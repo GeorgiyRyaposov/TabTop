@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Game.Scripts.Core.Tools;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Domain.Tools
@@ -8,7 +9,6 @@ namespace Assets.Game.Scripts.Domain.Tools
     {
         public List<TableObjectParameters> StartObjectsParameters;
 
-        [Header("InteractionTools")]
-        public FlipTool FlipTool;
+        public List<InteractionTool> ExcludedTools;
     }
 }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RotationTool
   m_EditorClassIdentifier: 
   _rotation: {x: 0, y: 0, z: 90}
-  _duration: 0.2
+  _duration: 0.5
