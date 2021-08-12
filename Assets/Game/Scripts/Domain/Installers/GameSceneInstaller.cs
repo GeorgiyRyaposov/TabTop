@@ -1,6 +1,7 @@
 ﻿using Assets.Game.Scripts.Domain.Components;
 using Assets.Game.Scripts.Domain.Controllers;
 using Assets.Game.Scripts.Domain.Signals;
+using Assets.Game.Scripts.Domain.Views;
 using UnityEngine;
 using Zenject;
 
@@ -13,24 +14,22 @@ namespace Assets.Game.Scripts.Domain.Installers
 
         [Header("GameScene")]
         public Transform TableRoot;
+        public GameInputController GameInputController;
 
         [Header("Ui")]
-        public Transform UiRoot;
+        public InteractionToolView InteractionToolView;
 
         public override void InstallBindings()
         {
             InstallSignals();
 
             //install ui
-            //Container.BindInstance(StartScreenView);
-            //Container.BindInstance(SettingsView);
-            //Container.BindInstance(PointsView);
+            Container.BindInstance(InteractionToolView);
 
             //install game systems
             Container.BindInterfacesAndSelfTo<GameStateController>().AsSingle();
-            Container.BindInterfacesAndSelfTo<GameInputController>().AsSingle();
 
-            //Container.BindInstance(Protagonist);
+            Container.BindInstance(GameInputController);
 
             //install factories
             Container.BindFactory<Vector3, TableObject, TableObject.Factory>()

@@ -2,34 +2,28 @@
 using Assets.Game.Scripts.Domain.Contexts;
 using Assets.Game.Scripts.Domain.Signals;
 using Assets.Game.Scripts.Domain.Tools;
+using Assets.Game.Scripts.Domain.Views;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
-using UnityEngine.Networking;
 using Zenject;
 
 namespace Assets.Game.Scripts.Domain.Controllers
 {
     public class GameStateController : IInitializable, IDisposable
     {
-        private GameInputController _gameInputSystem;
         private SignalBus _signalBus;
         private readonly TableObject.Factory _tableObjectsFactory;
         private readonly ToolsContainer _toolsContainer;
+        private readonly InteractionToolView _interactionToolView;
 
-        //private StartScreenView _startScreenView;
-        //private SettingsView _settingsView;
-
-        public GameStateController(GameInputController gameInputSystem,
+        public GameStateController(
             SignalBus signalBus, TableObject.Factory tableObjectsFactory,
-            ToolsContainer toolsContainer)
+            ToolsContainer toolsContainer, InteractionToolView interactionToolView)
         {
-            _gameInputSystem = gameInputSystem;
             _signalBus = signalBus;
             _tableObjectsFactory = tableObjectsFactory;
             _toolsContainer = toolsContainer;
+            _interactionToolView = interactionToolView;
         }
 
         public void Initialize()
@@ -42,39 +36,30 @@ namespace Assets.Game.Scripts.Domain.Controllers
 
         }
 
-        private void SetupViews()
-        {
-            //_startScreenView.StartGame.onClick.AddListener(OnStartNewGameClick);
-            //_startScreenView.Settings.onClick.AddListener(OnShowSettingsClick);
-            //_startScreenView.Quit.onClick.AddListener(Application.Quit);
-
-            //_settingsView.ApplyButton.onClick.AddListener(OnApplySettingsClick);
-            //_settingsView.RestoreDefaultsButton.onClick.AddListener(_settingsSystem.RestoreDefaultSettings);
-            //_settingsView.QuitButton.onClick.AddListener(Application.Quit);
-
-            //_startScreenView.Show();
-            //_settingsView.Hide();
-        }
-
         public void StartNewGame()
         {
             GameContext.Current = new GameContext();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < _toolsContainer.StartObjectsParameters.Count; i++)
             {
-                var tableObj = _tableObjectsFactory.Create(new Vector3(i, 5, 0));
+                var objectParameters = _toolsContainer.StartObjectsParameters[i];
 
-                var installTool = i % 2 == 0 ? _toolsContainer.InstallFlatMesh : _toolsContainer.InstallVolumeMesh;
-                installTool.Install(tableObj);
+                var tableObj = _tableObjectsFactory.Create(new Vector3(i + 0.5f, 5, 0));
 
-                _toolsContainer.InstallTexture.Install(tableObj, i);
+                foreach (var installTool in objectParameters.InstallTools)
+                {
+                    installTool.Install(tableObj);
+                }
+
+                tableObj.InteractionTools.AddRange(objectParameters.InteractionTools);
             }
 
-            //activate player
-            //_protagonist.gameObject.SetActive(true);
-            //_protagonist.Attach(GameContext.Current);
-
             _signalBus.Fire<NewGameStarted>();
+        }
+
+        private void SetupViews()
+        {
+            _interactionToolView.Attach(GameContext.Current);
         }
     }
 }

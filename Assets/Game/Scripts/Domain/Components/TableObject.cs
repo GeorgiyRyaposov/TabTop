@@ -20,6 +20,8 @@ namespace Assets.Game.Scripts.Domain.Components
         public MeshFilter MeshFilter => _meshFilter;
         public BoxCollider Collider => _collider;
 
+        public readonly List<InteractionTool> InteractionTools = new List<InteractionTool>();
+
         private IMemoryPool _pool;
 
         public void Install(List<InstallObjectTool> installObjectTools)

@@ -2,7 +2,6 @@
 using Assets.Game.Scripts.Domain.Components;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Networking;
 
 namespace Assets.Game.Scripts.Domain.Tools
@@ -11,24 +10,17 @@ namespace Assets.Game.Scripts.Domain.Tools
     public class InstallTextureTool : InstallObjectTool
     {
 #pragma warning disable 0649
-        [SerializeField] private string[] _texturesNames;
+        [SerializeField] private string _textureName;
 #pragma warning restore 0649
 
         public override void Install(TableObject tableObject)
         {
-            SetTexture(tableObject, 0).Forget();
+            SetTexture(tableObject).Forget();
         }
 
-        public void Install(TableObject tableObject, int index)
+        private async UniTask SetTexture(TableObject tableObject)
         {
-            Assert.IsTrue(index < _texturesNames.Length, "Wrong index!");
-
-            SetTexture(tableObject, index).Forget();
-        }
-
-        private async UniTask SetTexture(TableObject tableObject, int index)
-        {
-            var texturePath = $"file://{Application.streamingAssetsPath}/Textures/{_texturesNames[index]}.png";
+            var texturePath = $"file://{Application.streamingAssetsPath}/Textures/{_textureName}.png";
 
             using (var uwr = UnityWebRequestTexture.GetTexture(texturePath))
             {

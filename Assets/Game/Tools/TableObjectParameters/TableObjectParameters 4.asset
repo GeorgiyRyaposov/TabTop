@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18c753e2bdbdac49a9a08a38ba39463, type: 3}
+  m_Name: TableObjectParameters 4
+  m_EditorClassIdentifier: 
+  InstallTools:
+  - {fileID: 11400000, guid: 15dd6b46ad88f5644964f9f079136b20, type: 2}
+  - {fileID: 11400000, guid: 0f865d66e1379b44a84649109b9362b5, type: 2}
+  InteractionTools:
+  - {fileID: 11400000, guid: 2900f58d09318704a89c6884a613d2c3, type: 2}

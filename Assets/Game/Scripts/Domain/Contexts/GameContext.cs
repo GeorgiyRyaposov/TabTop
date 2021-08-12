@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using Assets.Game.Scripts.Domain.Components;
+using UniRx;
 
 namespace Assets.Game.Scripts.Domain.Contexts
 {
@@ -6,6 +7,6 @@ namespace Assets.Game.Scripts.Domain.Contexts
     {
         public static GameContext Current;
 
-        public IntReactiveProperty Points = new IntReactiveProperty();
+        public ReactiveProperty<TableObject> SelectedObject = new ReactiveProperty<TableObject>();
     }
 }
