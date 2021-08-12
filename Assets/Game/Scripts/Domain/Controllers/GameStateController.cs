@@ -1,9 +1,7 @@
 ﻿using Assets.Game.Scripts.Domain.Components;
 using Assets.Game.Scripts.Domain.Contexts;
-using Assets.Game.Scripts.Domain.Signals;
 using Assets.Game.Scripts.Domain.Tools;
 using Assets.Game.Scripts.Domain.Views;
-using System;
 using System.Linq;
 using UnityEngine;
 using Zenject;

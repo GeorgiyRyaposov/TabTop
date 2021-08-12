@@ -1,6 +1,5 @@
 ﻿using Assets.Game.Scripts.Domain.Components;
 using Assets.Game.Scripts.Domain.Controllers;
-using Assets.Game.Scripts.Domain.Signals;
 using Assets.Game.Scripts.Domain.Views;
 using UnityEngine;
 using Zenject;
@@ -22,8 +21,6 @@ namespace Assets.Game.Scripts.Domain.Installers
 
         public override void InstallBindings()
         {
-            InstallSignals();
-
             //install ui
             Container.BindInstance(InteractionToolView);
             Container.BindInstance(SelectedToolView);
@@ -38,13 +35,6 @@ namespace Assets.Game.Scripts.Domain.Installers
                 .FromMonoPoolableMemoryPool(x => x.WithInitialSize(10)
                                                   .FromComponentInNewPrefab(TableObj)
                                                   .UnderTransformGroup("TableObjectsPool"));
-        }
-
-        private void InstallSignals()
-        {
-            SignalBusInstaller.Install(Container);
-
-            Container.DeclareSignal<NewGameStarted>();
         }
     }
 }
